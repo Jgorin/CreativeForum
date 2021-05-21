@@ -1,0 +1,28 @@
+@import "./foundation/settings";
+@import "~foundation-sites/scss/foundation";
+@include foundation-everything;
+// place global css here
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+.appsize{
+  margin-top: 100px;
+}
+
+.white{
+  color: white;
+}
+
+.centered{
+  margin: auto !important;
+  width: 70%;
+  left: 50%;
+}
