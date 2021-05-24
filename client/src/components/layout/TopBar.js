@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
-import { AppBar, Toolbar, Typography, Button, IconButton, makeStyles, Menu, MenuItem} from "@material-ui/core"
+import { AppBar, Toolbar, Typography, Button, IconButton, makeStyles, Menu, MenuItem, Avatar } from "@material-ui/core"
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +52,14 @@ const TopBar = ({ user }) => {
     </MenuItem>
   ]
 
+  let userAvatar
+  if(user){
+    userAvatar = 
+    <Link to={`/users/${user.id}`}>
+      <Avatar src={user.avatar}/>
+    </Link>
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -59,9 +67,10 @@ const TopBar = ({ user }) => {
           <Typography variant="h3" className={classes.title}>
             <Link to="/" className="white">CreativeForum</Link>
           </Typography>
+          {userAvatar}
           <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleClick}>
             <MenuIcon/>
-          </IconButton>       
+          </IconButton>  
           <Menu         
             id="simple-menu"
             anchorEl={anchorEl}

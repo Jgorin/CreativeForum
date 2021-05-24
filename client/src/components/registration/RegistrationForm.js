@@ -4,9 +4,12 @@ import config from "../../config";
 
 const RegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
+    username: "",
     email: "",
     password: "",
     passwordConfirmation: "",
+    file: {},
+    fileName: ""
   });
 
   const [errors, setErrors] = useState({});
@@ -15,7 +18,7 @@ const RegistrationForm = () => {
 
   const validateInput = (payload) => {
     setErrors({});
-    const { email, password, passwordConfirmation } = payload;
+    const { email, password, passwordConfirmation, username } = payload;
     const emailRegexp = config.validation.email.regexp;
     let newErrors = {};
     if (!email.match(emailRegexp)) {
@@ -30,6 +33,13 @@ const RegistrationForm = () => {
         ...newErrors,
         password: "is required",
       };
+    }
+
+    if(username.trim() == "") {
+      newErrors = {
+        ...newErrors,
+        username: "is required"
+      }
     }
 
     if (passwordConfirmation.trim() === "") {
@@ -49,16 +59,17 @@ const RegistrationForm = () => {
     setErrors(newErrors);
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async(event) => {
     event.preventDefault();
     validateInput(userPayload);
     if (Object.keys(errors).length === 0) {
+      let info = new FormData()
+      for(const [key, value] of Object.entries(userPayload)){
+        info.append(key, value)
+      }
       fetch("/api/v1/users", {
         method: "post",
-        body: JSON.stringify(userPayload),
-        headers: new Headers({
-          "Content-Type": "application/json",
-        }),
+        body: info
       }).then((resp) => {
         if (resp.ok) {
           resp.json().then((user) => {
@@ -76,9 +87,19 @@ const RegistrationForm = () => {
   const onInputChange = (event) => {
     setUserPayload({
       ...userPayload,
-      [event.currentTarget.name]: event.currentTarget.value,
+      [event.currentTarget.name]: event.currentTarget.value
     });
   };
+
+  const onFileChange = async(event) => {
+    const file = event.currentTarget.files[0]
+    const fileName = file.name
+    setUserPayload({
+      ...userPayload,
+      ["file"]: file,
+      ["fileName"]: fileName
+    })
+  }
 
   if (shouldRedirect) {
     location.href = "/";
@@ -88,6 +109,12 @@ const RegistrationForm = () => {
     <div className="grid-container" onSubmit={onSubmit}>
       <h1>Register</h1>
       <form>
+        <div>
+          <label>
+            Username
+            <input type="text" name="username" value={userPayload.username} onChange={onInputChange} />
+          </label>
+        </div>
         <div>
           <label>
             Email
@@ -117,6 +144,16 @@ const RegistrationForm = () => {
               onChange={onInputChange}
             />
             <FormError error={errors.passwordConfirmation} />
+          </label>
+        </div>
+        <div>
+          <label>
+            <input
+              type="file"
+              name="file"
+              onChange={onFileChange}
+              accept="image/png, image/jpeg"
+            />
           </label>
         </div>
         <div>
