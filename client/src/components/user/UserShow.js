@@ -3,6 +3,7 @@ import { fetchUser } from "../../services/UserFetches"
 import PostList from "./PostList"
 import Fab from "@material-ui/core/Fab"
 import AddIcon from "@material-ui/icons/Add"
+import UserProfileShowTile from "./UserProfileShowTile"
 
 const initialState = {
   id: null,
@@ -18,6 +19,7 @@ const UserShow = (props) => {
     const userId = props.match.params.id
     const response = await fetchUser(userId)
     if(response.user != null){
+      debugger
       setUser(response.user)
     }
     else{
@@ -32,7 +34,7 @@ const UserShow = (props) => {
   return(
     <div>
       {errors}
-      <h1 className="text-center">{user.email}</h1>
+      <UserProfileShowTile user={user} className="centered"/>
       <PostList posts={user.posts}/>
       <Fab color="primary" aria-label="add" className="centered">
         <AddIcon/>

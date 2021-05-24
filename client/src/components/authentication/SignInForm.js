@@ -3,7 +3,7 @@ import config from "../../config";
 import FormError from "../layout/FormError";
 
 const SignInForm = () => {
-  const [userPayload, setUserPayload] = useState({ id: null, email: "", password: "" });
+  const [userPayload, setUserPayload] = useState({ id: null, email: "", password: "", username: "" });
   const [redirectId, setRedirectId] = useState(null);
   const [errors, setErrors] = useState({});
 
