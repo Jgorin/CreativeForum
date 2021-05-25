@@ -30,11 +30,20 @@
 .inline{
   > * {
     display: inline-block !important;
-    position: absolute;
-    transform: translateY(-50%);
-    margin-top: 90px !important;
-    margin-left: 50px;
+
   }
+}
+
+.avatar {
+  transform: translateY(-50%) !important;
+  margin-left: 30px;
+  border-style: solid;
+  border-width: 12px;
+  border-color: rgb(226, 226, 226);
+}
+.name{
+  position: absolute;
+  margin-top:15px !important;
 }
 
 .grey{
@@ -45,5 +54,52 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
-  width: 1330px;
+  width: 90%;
+}
+
+.profileBar{
+  position: absolute !important;
+  height: 80px;
+  width: 100%;
+  bottom: 0;
+}
+
+.profileCard{
+  height: 500px !important;
+  position: relative !important;
+}
+
+.description{
+  z-index: 1;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.712);
+  text-align: center;
+  width:400px;
+  margin-left: 50px;
+}
+
+.left{ 
+  margin-left: auto;
+  z-index: 1;
+}
+
+.background-black{
+  background-color: rgba(0, 0, 0, 0.712) !important;
+  color: white !important;
+}
+
+.modal{
+  background-color: white;
+  border-radius: 3px;
+  padding: 25px;
+}
+
+.flex{
+  display: flex;
+  align-items: flex-start;
+}
+
+.backdrop{
+  position: absolute;
+  opacity: 90%;
 }
