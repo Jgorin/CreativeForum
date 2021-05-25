@@ -34,7 +34,9 @@ const UserShow = (props) => {
   return(
     <div>
       {errors}
-      <UserProfileShowTile user={user} className="centered"/>
+      <div className="profileTile">
+        <UserProfileShowTile user={user} setUser={setUser}/>
+      </div>
       <PostList posts={user.posts}/>
       <Fab color="primary" aria-label="add" className="centered">
         <AddIcon/>

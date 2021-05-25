@@ -67,7 +67,7 @@ const TopBar = ({ user }) => {
           <Typography variant="h3" className={classes.title}>
             <Link to="/" className="white">CreativeForum</Link>
           </Typography>
-          {userAvatar}
+          {/* {userAvatar} */}
           <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleClick}>
             <MenuIcon/>
           </IconButton>  

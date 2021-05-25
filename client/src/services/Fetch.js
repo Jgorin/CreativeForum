@@ -69,3 +69,26 @@ export const DELETE = async(url, data = null) => {
     return null
   }
 }
+
+export const PATCH = async(url, data) => {
+  try{
+    let fullUrl = baseUrl + url
+    let params = {
+      ...requestDetails,
+      ["method"]: "PATCH",
+      ["body"]: data
+    }
+    delete params.headers
+    const response = await fetch(fullUrl, params)
+    if(!response.ok){
+      let errorMessage = `${response.status} (${response.statusText})`
+      throw(new Error(errorMessage))
+    }
+    let parsedResponse = await response.json()
+    return parsedResponse
+  }
+  catch(err){
+    console.log(`ERR: PATCH request to ${url} failed...`)
+    return err
+  }
+}
