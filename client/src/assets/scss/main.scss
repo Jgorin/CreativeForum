@@ -53,8 +53,9 @@
 .profileTile{
   margin-left: auto;
   margin-right: auto;
-  margin-top: 50px;
-  width: 90%;
+  margin-top: 25px;
+  width: 1000px;
+  height: 563px;
 }
 
 .profileBar{
@@ -65,8 +66,9 @@
 }
 
 .profileCard{
-  height: 500px !important;
+  height: 563px !important;
   position: relative !important;
+  overflow: hidden;
 }
 
 .description{
@@ -101,5 +103,35 @@
 
 .backdrop{
   position: absolute;
+  overflow:hidden;
   opacity: 90%;
+  width: 1000px;
+  height: 563px;
+}
+
+.previewImage{
+  width:100%;
+  height:200px;
+  object-fit: scale-down !important;
+  overflow: hidden;
+}
+
+.bordered{
+  border-style:dashed;
+  border-color: grey;
+  border-width:1px;
+  min-height: 50px;
+}
+
+.editBackdropForm{
+  max-width: 500px;
+}
+
+.addIcon{
+  margin-top: 25px !important;
+  margin-bottom: 25px !important;
+}
+
+.not-clickable{
+  pointer-events: none;
 }

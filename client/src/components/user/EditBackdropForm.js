@@ -1,6 +1,8 @@
 import React, { useState } from "react"
-import { Button, Card } from "@material-ui/core"
+import { Button, Paper } from "@material-ui/core"
 import { editUserBackdrop } from "../../services/UserFetches"
+import ReactCrop from "react-image-crop"
+import 'react-image-crop/lib/ReactCrop.scss';
 
 const initialState = {
   file: null,
@@ -10,7 +12,7 @@ const initialState = {
 const EditBackdropForm = React.forwardRef((props, ref) => {
   const[payload, setPayload] = useState(initialState)
   const[image, setImage] = useState(null)
-  const[errors, setErrors] = useState(null)
+  const[crop, setCrop] = useState({ aspect: 16/9, width: 1330, unit: "px", x: 0, y: 0 })
   const { handleClose, user, setUser } = props
 
   const handleChange = (event) => {
@@ -19,6 +21,7 @@ const EditBackdropForm = React.forwardRef((props, ref) => {
       file: file,
       fileName: file.name
     })
+    setImage(URL.createObjectURL(file))
   }
 
   const handleSubmit = async(event) => {
@@ -32,17 +35,31 @@ const EditBackdropForm = React.forwardRef((props, ref) => {
     handleClose()
   }
 
+  let previewImage = null
+  if(image != null) {
+    previewImage = <img src={image} className="previewImage"/>
+  }
+
+  const handleOnCrop = (crop) => {
+    console.log(crop)
+    setCrop(crop)
+  }
+
   return(
-    <Card className="modal">
+    <Paper className="modal editBackdropForm" elevation={5}>
       <form>
         <h1>Edit Backdrop</h1>
         <label>
           backdrop image
           <input type="file" accept="image/png, image/jpeg" onChange={handleChange}/>
         </label>
-        <Button variant="contained" color="secondary" onClick={handleSubmit}>Submit</Button>
+        <ReactCrop src={image} crop={crop} onChange={handleOnCrop}/>
+        {/* <div className="bordered">
+          {previewImage}
+        </div> */}
+        <Button variant="contained" color="secondary" style={{marginTop: "15px"}} onClick={handleSubmit}>Submit</Button>
       </form>
-    </Card>
+    </Paper>
   )
 })
 
