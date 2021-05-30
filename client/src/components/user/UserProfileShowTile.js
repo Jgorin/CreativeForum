@@ -1,9 +1,8 @@
 import React, { useState } from "react"
-import { Avatar, Typography, Card, Modal, Backdrop, Fade } from "@material-ui/core"
-import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, Typography, Paper, makeStyles, IconButton } from "@material-ui/core"
 import EditIcon from '@material-ui/icons/Edit';
-import {IconButton} from "@material-ui/core"
 import EditBackdropForm from "./EditBackdropForm"
+import MaterialModal from "../utilities/MaterialModal"
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -13,18 +12,12 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 }));
 
 const UserProfileShowTile = (props) => {
   const [open, setOpen] = useState(false);
   const { user, setUser } = props
   const classes = useStyles()
-  console.log(user.avatar)
 
   const handleOpen = () => {
     setOpen(true)
@@ -37,38 +30,25 @@ const UserProfileShowTile = (props) => {
   let userBackdrop 
   let userAvatar
   if(user.backdrop != null){
-    userBackdrop = <img src={user.backdrop.Location} className="backdrop"/>
+    userBackdrop = <img src={user.backdrop.Location} className="backdrop not-clickable"/>
   }
   if(user.avatar != null){
-    userAvatar = <Avatar src={user.avatar.Location} className={`${classes.large} avatar`}/>
+    userAvatar = <Avatar src={user.avatar.Location} className={`${classes.large} avatar not-clickable`}/>
   }
   
   return(
     <div>
-      <Card variant="outlined" className="profileCard">
+      <Paper className="profileCard" elevation={3}>
         {userBackdrop}
         <div className="inline flex">
           <h4 className="description">Intro here...</h4>
-          <div className="left">
+          <div className="left">            
             <IconButton className={classes.menuButton} className="background-black" color="inherit" aria-label="menu" onClick={handleOpen}>
               <EditIcon/>
-            </IconButton> 
-            <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <EditBackdropForm handleClose={handleClose} user={user} setUser={setUser}/>
-              </Fade>
-            </Modal> 
+            </IconButton>
+            <MaterialModal open={open} handleClose={handleClose}>
+              <EditBackdropForm handleClose={handleClose} user={user} setUser={setUser}/>
+            </MaterialModal>
           </div>
         </div>
         <div className="inline grey profileBar">
@@ -77,7 +57,7 @@ const UserProfileShowTile = (props) => {
             {user.username}
           </Typography>
         </div>
-      </Card>
+      </Paper>
     </div>
   )
 }

@@ -56,7 +56,7 @@ const TopBar = ({ user }) => {
   if(user){
     userAvatar = 
     <Link to={`/users/${user.id}`}>
-      <Avatar src={user.avatar}/>
+      <Avatar src={user.avatar.Location}/>
     </Link>
   }
 
@@ -67,7 +67,7 @@ const TopBar = ({ user }) => {
           <Typography variant="h3" className={classes.title}>
             <Link to="/" className="white">CreativeForum</Link>
           </Typography>
-          {/* {userAvatar} */}
+          {userAvatar}
           <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleClick}>
             <MenuIcon/>
           </IconButton>  
